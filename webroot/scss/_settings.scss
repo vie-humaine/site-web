@@ -1,0 +1,34 @@
+// The latest settings can be found here:
+// https://github.com/zurb/bower-foundation/blob/master/scss/foundation/_settings.scss
+$row-width : 100%;
+
+// Couleur
+$primary-color : #E37B40;
+$secondary-color : #46B29D;
+$topbar-bg-color: #E27A3F;
+$topbar-dropdown-bg: #E27A3F;
+$topbar-link-bg-active-hover: #DF5A49;
+$topbar-link-bg-hover: #DF5A49;
+$topbar-dropdown-link-bg-hover: #DF5A49;
+$topbar-dropdown-link-bg: scale-color(#E27A3F,$lightness: -14%);
+
+// Panel
+
+
+// link et typo
+$anchor-font-color: $secondary-color;
+$header-font-color: #324D5C;
+
+// Form
+$input-border-color: #46B29D;
+$input-focus-border-color: $input-border-color;
+$fieldset-border-color: #46B29D;
+
+// table
+$table-border-color: #46B29D;
+$table-head-bg: #F0CA4D;
+$default-float: center;
+
+// blockquotes
+$blockquote-font-color: scale-color(#222222, $lightness: 35%);
+$blockquote-cite-font-color: scale-color(#222222, $lightness: 23%);
