@@ -10,7 +10,11 @@ if ($params['class'] == "error")
 }
 
 ?>
-<div data-alert class="alert-box <?= h($class) ?>">
-  <?= h($message) ?>
-  <a href="#" class="close">&times;</a>
+<div class="flash <?= h($class) ?>">
+    <div class="left">
+          <?= h($message) ?>
+    </div>
+    <div class="right">
+          <a href="#">&times;</a>
+    </div>
 </div>

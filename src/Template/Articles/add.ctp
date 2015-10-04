@@ -22,3 +22,5 @@ $(document).ready(function()	{
 <?= $this->Html->script("jquery.textcomplete",["block" => "script"]); ?>
 <?= $this->Html->script("Articles.add",["block" => "script"]); ?>
 <?= $this->Html->css("textcomplete",["block" => "css"]); ?>
+
+<br>

@@ -1,4 +1,8 @@
-<div data-alert class="alert-box success">
-  <?= h($message) ?>
-  <a href="#" class="close">&times;</a>
+<div class="flash success">
+    <div class="left">
+          <?= h($message) ?>
+    </div>
+    <div class="right">
+          <a href="#">&times;</a>
+    </div>
 </div>

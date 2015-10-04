@@ -16,9 +16,8 @@
 $cakeDescription = 'Ma vie d\'humain';
 ?>
 
-
 <!doctype html>
-<!--[if IE 9]><html class="lt-ie10" lang="en" > <![endif]-->
+<!--[if IE 9]><html class="lt-ie10" lang="fr" > <![endif]-->
 <html class="no-js" lang="fr" data-useragent="Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; Trident/6.0)">
 <head>
     <?= $this->Html->charset() ?>
@@ -30,118 +29,50 @@ $cakeDescription = 'Ma vie d\'humain';
     <meta name="description" content="Blog ma vie d'humain"/>
     <meta name="author" content="minus78"/>
     <?= $this->Html->meta('icon') ?>
-
-    <?= $this->Html->css('app.css') ?>
-
     <?= $this->fetch('meta') ?>
-    <?= $this->fetch('css') ?>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-    <?= $this->fetch('script') ?>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.8.0/highlight.min.js"></script>
-    <?= $this->Html->script('modernizr') ?>
-    <style media="screen">
-    .disqus-comment-count
-    {
-        color: #DE5B49;
-    }
-    .fa
-    {
-        color:inherit;
-    }
-    .emojione
-    {
-        width: 25px;
-    }
-    .twitter-share-button,.twitter-follow-button
-    {
-        vertical-align: middle;
-    }
-    </style>
+    <?= $this->Html->css('app.css') ?>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
 </head>
 <body>
-    <nav class="top-bar" data-topbar role="navigation">
-        <ul class="title-area">
-            <li class="name">
-                <h1><a href="#">Ma vie d'humain</a></h1>
-            </li>
-            <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
-            <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
+    <!-- nav bar -->
+    <nav>
+        <ul>
+            <li><?= $this->Html->image("svg/human.svg") ?>&nbsp; Ma vie d'humain</li>
+            <li><?= $this->Html->link("<i class=\"fa fa-comment\"></i>&nbsp;Blog",["controller" => 'articles'],['escape' => false]); ?></li>
+            <li><a href="#"><i class="fa fa-envelope"></i>&nbsp;Contact</a></li>
         </ul>
-
-        <section class="top-bar-section">
-            <!-- Right Nav Section -->
-            <?php
-            $AuthUser = $this->request->session()->read("Auth.User.username");
-            $class = "";
-
-            if(!empty($AuthUser))
-            {
-                $class = "class=\"has-dropdown\"";
-                $username = h($AuthUser);
-            } else {
-                $username = "Compte";
-            }
-
-            ?>
-            <ul class="right">
-                <li <?= $class ?>>
-                    <?= $this->Html->link("<i class=\"fa fa-user\"></i>&nbsp;".$username,["controller" => "users","action" => "login"],['escape' => false]) ?>
-                    <?php if (!empty($AuthUser)): ?>
-                        <ul class="dropdown">
-                            <?php if ($this->request->session()->read("Auth.User.role") == "Admin"): ?>
-                                <li><?= $this->Html->link("<i class=\"fa fa-plus-square\"></i>&nbsp;Ajouter un article",["controller" => "articles",'action' => "add"],["escape" => false]); ?></li>
-                            <?php endif; ?>
-                            <li><?= $this->Html->link("<i class=\"fa fa-lock\"></i>&nbsp;Compte",["controller" => "users"],["escape" => false]) ?></li>
-                            <li><?= $this->Html->link("<i class=\"fa fa-sign-out\"></i>&nbsp;Deconnection",["controller" => "users","action" => "logout"],["escape" => false]) ?></li>
-                        </ul>
-                    <?php endif; ?>
-                </li>
-            </ul>
-
-            <!-- Left Nav Section -->
-            <ul class="left">
-                <li><?= $this->Html->link("<i class=\"fa fa-comment\"></i>&nbsp;Blog",["controller" => 'articles'],['escape' => false]); ?></li>
-                <li><a href="contact.html"><i class="fa fa-envelope-o"></i>&nbsp;Contact</a></li>
-            </ul>
-        </section>
     </nav>
+    <!-- /navbar -->
     <br>
-    <?= $this->Flash->render() ?>
-    <div class="row">
+    <!-- Content -->
+    <div class="content">
 
-        <div class="large-9 columns" role="content">
-
+        <article>
+            <?= $this->Flash->render() ?>
             <?= $this->fetch('content') ?>
+        </article>
 
-        </div>
-
-
-        <aside class="large-3 show-for-large-up columns">
+        <!-- aside -->
+        <aside>
             <h5>Categories</h5>
-
-            <?= $this->Cell("Category") ?>
-
-            <div class="panel text-center">
-                <?= $this->Html->image("svg/Twitter.svg",["width" => 48,"height" => 48,"url" => "https://twitter.com/minus78_"]); ?>
-                &nbsp;
-                <?= $this->Html->image("svg/Youtube.svg",["width" => 48,"height" => 48,"url" => "https://www.youtube.com/channel/UCmJLbilZJqmR6sDewWWeOLw"]); ?>
-                &nbsp;
-                <?= $this->Html->image("svg/Github.svg",["width" => 48,"height" => 48,"url" => "https://github.com/minus78"]); ?>
-                &nbsp;
-                <?= $this->Html->image("svg/Livecoding.svg",["width" => 48,"height" => 48,"url" => "https://www.livecoding.tv/minus78/"]); ?>
-            </div>
-
+                <?= $this->Cell("Category") ?>
         </aside>
-
+        <!-- /aside -->
     </div>
-
-    <?= $this->Html->script("foundation.min"); ?>
-    <script>
-    $(document).foundation();
-
-    var doc = document.documentElement;
-    doc.setAttribute('data-useragent', navigator.userAgent);
-    </script>
+    <!-- /content -->
+    <!-- footer -->
+    <footer>
+        <?= $this->Html->image("svg/Twitter.svg",["width" => 48,"height" => 48,"url" => "https://twitter.com/minus78_"]); ?>
+        &nbsp;
+        <?= $this->Html->image("svg/Youtube.svg",["width" => 48,"height" => 48,"url" => "https://www.youtube.com/channel/UCmJLbilZJqmR6sDewWWeOLw"]); ?>
+        &nbsp;
+        <?= $this->Html->image("svg/Github.svg",["width" => 48,"height" => 48,"url" => "https://github.com/minus78"]); ?>
+        &nbsp;
+        <?= $this->Html->image("svg/Livecoding.svg",["width" => 48,"height" => 48,"url" => "https://www.livecoding.tv/minus78/"]); ?>
+    </footer>
+    <!-- /footer -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.8.0/highlight.min.js"></script>
+    <?= $this->Html->script('app'); ?>
 </body>
 </html>

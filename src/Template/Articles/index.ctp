@@ -5,13 +5,12 @@
     <p>
         <?= $article->description ?>
     </p>
-    <br>
 <?php endforeach; ?>
 
-<div class="pagination-centered">
-    <ul class="pagination">
-        <?= $this->Paginator->prev('« Previous') ?>
+<div class="paginate">
+    <ul>
+        <?= $this->Paginator->prev('«') ?>
         <?= $this->Paginator->numbers() ?>
-        <?= $this->Paginator->next('Next »') ?>
+        <?= $this->Paginator->next('»') ?>
     </ul>
 </div>

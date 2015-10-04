@@ -1,30 +1,8 @@
-<article>
     <h1><a href="#"><?= $article->name ?></a></h1>
-
-    <div class="row">
-        <div class="large-9 columns show-for-medium-up">
-            <h6>Publié le <?= $article->ModifiedDate ?>, dans la catégorie <?= $this->Html->link($article->category->name,[]) ?></h6>
-        </div>
-        <div class="large-3 columns show-for-large-up">
-
-            <!-- twitter -->
-            <a href="https://twitter.com/share" class="twitter-share-button" data-via="minus78_" data-count="none" data-dnt="true">Tweet</a>
-            <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
-            &nbsp;
-            <a href="https://twitter.com/minus78_" class="twitter-follow-button" data-show-count="false" data-dnt="true">Follow @minus78_</a>
-            <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
-            <!-- /twitter -->
-            <!-- &nbsp;
-            <span class="disqus-comment-count">
-                <i class="fa fa-comments"> </i> <span class="disqus-comment-count" data-disqus-identifier="article-<?= $article->id ?>-<?= $article->slug ?>"></span>
-            </span> -->
-        </div>
-    </div>
-
+    <h6>Publié le <?= $article->ModifiedDate ?>, dans la catégorie <?= $this->Html->link($article->category->name,[]) ?></h6>
     <p>
         <?= $article->MarkdownContent ?>
     </p>
-</article>
 <br>
 
 <!-- disqus -->
