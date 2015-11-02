@@ -1,4 +1,4 @@
-    <h1><a href="#"><?= $article->name ?></a></h1>
+    <h1><a href="#"><?= h($article->name) ?></a></h1>
     <h6>Publié le <?= $article->ModifiedDate ?>, dans la catégorie <?= $this->Html->link($article->category->name,[]) ?></h6>
     <p>
         <?= $article->MarkdownContent ?>

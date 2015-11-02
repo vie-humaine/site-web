@@ -27,6 +27,7 @@ class ArticlesController extends AppController
 
         $articles = $this->paginate(
         $this->Articles->find("all")
+            ->where(['Articles.validate' => 1])
             ->select(['name','description','modified','id','slug'])
         );
 
@@ -41,10 +42,28 @@ class ArticlesController extends AppController
             $article = $this->Articles->find("all")
                 ->where(["Articles.id" => $id])
                 ->contain(["Categories"])
-                ->select(["Articles.content","Articles.name","Categories.name","Articles.modified","Articles.id","Articles.slug"])
+                ->select(["Articles.validate","Articles.content","Articles.name","Categories.name","Articles.modified","Articles.id","Articles.slug"])
                 ->first();
 
-            $this->set('article',$article);
+            if (empty($article))
+            {
+                return $this->redirect(['controller' => 'articles']);
+            }
+
+            if ($article->validate == 1)
+            {
+                // Article validé
+                $this->set('article',$article);
+
+            } elseif ($this->request->session()->read("Auth.User.role") == 'Admin'){
+
+                // Article non validé mais utilistateur admin
+                $this->set('article',$article);
+            } else {
+
+                // Article non validé et utilisateur non admin
+                return $this->redirect(['controller' => 'articles']);
+            }
 
         } else {
             return $this->redirect(['controller' => 'articles']);
@@ -80,6 +99,74 @@ class ArticlesController extends AppController
         $categories = $this->Articles->Categories->find("list");
         $this->set("article",$article);
         $this->set("categories",$categories);
+
+    }
+
+    public function admin()
+    {
+        if ($this->request->session()->read("Auth.User.role") != 'Admin')
+        {
+            $this->Flash->error("Action non autorisée");
+            return $this->redirect(["controller" => "articles"]);
+        }
+
+        $this->paginate = [
+            'limit' => 5,
+            'order' => ['Articles.modified' => 'desc'],
+        ];
+
+        $articles = $this->paginate(
+        $this->Articles->find("all")
+            ->select(['name','modified','id','slug','validate'])
+        );
+
+        $this->set("articles",$articles);
+    }
+
+    public function delete($id)
+    {
+        if ((empty($id) == true) || (is_numeric($id) == false) || ($this->request->is('post') == false) || ($this->request->session()->read("Auth.User.role") != 'Admin'))
+        {
+            return $this->redirect(["controller" => "articles"]);
+        }
+
+        $entity = $this->Articles->get($id);
+
+        if ($this->Articles->delete($entity))
+        {
+            $this->Flash->success('Article effacé');
+            return $this->redirect($this->referer());
+        } else {
+            $this->Flash->error('Une erreur est survenu');
+            return $this->redirect($this->referer());
+        }
+
+    }
+
+    public function validate($id)
+    {
+        if ((empty($id) == true) || (is_numeric($id) == false) || ($this->request->is('post') == false) || ($this->request->session()->read("Auth.User.role") != 'Admin'))
+        {
+            return $this->redirect(["controller" => "articles"]);
+        }
+
+        $entity = $this->Articles->get($id);
+
+        if ($entity->validate)
+        {
+            $entity->validate = 0;
+        } else {
+            $entity->validate = 1;
+        }
+
+        if ($this->Articles->save($entity))
+        {
+            $this->Flash->success('Action reussi');
+            return $this->redirect($this->referer());
+        } else {
+            $this->Flash->error('Une erreur est survenu');
+            return $this->redirect($this->referer());
+        }
 
     }
 

@@ -35,12 +35,6 @@ class ArticlesTable extends Table
             'foreignKey' => 'categorie_id',
             'joinType' => 'INNER'
         ]);
-
-        $this->hasMany('Comments',[
-            'className' => 'Comments',
-            'foreignKey' => 'article_id',
-            'dependent' => true,
-            ]);
     }
 
     /**
